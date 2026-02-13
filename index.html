@@ -36,11 +36,6 @@
             font-weight: 400;
         }
 
-        h1, h2, h3, p, div, span, button {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
-
         .ambient-light {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none; overflow: hidden;
@@ -65,7 +60,6 @@
             -webkit-text-fill-color: transparent;
             text-align: center;
             line-height: 1.1;
-            padding-bottom: 15px;
         }
 
         .content-wrapper {
@@ -83,18 +77,13 @@
             border-radius: 32px; overflow: hidden; position: relative;
             box-shadow: var(--card-shadow); background: #fff;
             opacity: 0; transform: translateY(80px) rotateX(5deg) rotateY(-5deg);
-            will-change: transform, opacity;
         }
 
         .card-container.horizontal { aspect-ratio: 4 / 3; max-width: 520px; }
 
         .card-image {
-            width: 100%; 
-            height: 130%; 
-            object-fit: cover;
-            position: absolute; 
-            top: -15%; 
-            left: 0; 
+            width: 100%; height: 130%; object-fit: cover;
+            position: absolute; top: -15%; left: 0;
             will-change: transform;
         }
 
@@ -104,7 +93,7 @@
             line-height: 1.4;
             color: var(--text);
             text-align: center;
-            opacity: 0; transform: translateY(30px); will-change: transform, opacity;
+            opacity: 0; transform: translateY(30px);
         }
 
         @media (min-width: 1024px) { .text-block { text-align: left; } }
@@ -120,7 +109,7 @@
         .music-btn {
             position: fixed; bottom: 30px; right: 30px;
             background: rgba(255, 240, 243, 0.85); backdrop-filter: blur(12px);
-            padding: 12px 24px; border-radius: 50px; border: 1px solid rgba(89, 13, 34, 0.05);
+            padding: 12px 24px; border-radius: 50px; border: 1px solid rgba(89, 13, 34, 0.1);
             color: var(--text); font-weight: 500; cursor: pointer; z-index: 100;
             box-shadow: 0 5px 20px rgba(89, 13, 34, 0.1); transition: 0.3s;
             font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;
@@ -128,8 +117,7 @@
 
         .final-reveal {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
-            cursor: pointer; transition: 0.3s;
-            font-weight: 600;
+            cursor: pointer; font-weight: 600;
             background: linear-gradient(135deg, var(--highlight-start), var(--highlight-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -146,106 +134,71 @@
 
     <button class="music-btn" onclick="toggleMusic()" id="musicBtn">Play Music</button>
     
-    <audio id="bgMusic" loop src="8ade7716f6b1ec6.mp3"></audio>
+    <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
+        <source src="8ade7716f6b1ec6.mp3" type="audio/mpeg">
+    </audio>
 
-    <section>
-        <div class="hero-title" id="hero">Для моєї<br>коханої Анічки.</div>
-    </section>
+    <section><div class="hero-title" id="hero">Для моєї<br>коханої Анічки.</div></section>
 
     <section>
         <div class="content-wrapper">
-            <div class="card-container" id="card1">
-                <img src="https://i.postimg.cc/VsVckzV7/IMG-5102.jpg" class="card-image" id="img1" loading="lazy">
-            </div>
-            <div class="text-block" id="txt1">
-                Все почалося на інферно і я навіть подумати не міг, що саме там знайду <span class="highlight">любов</span> всього мого життя. Яка повністю змінить мій світ.
-            </div>
+            <div class="card-container" id="card1"><img src="https://i.postimg.cc/VsVckzV7/IMG-5102.jpg" class="card-image" id="img1"></div>
+            <div class="text-block" id="txt1">Все почалося на інферно і я навіть подумати не міг, що знайду <span class="highlight">любов</span> життя.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
-            <div class="card-container" id="card2">
-                <img src="https://i.postimg.cc/0yzWTfV0/IMG_4178.jpg" class="card-image" id="img2" loading="lazy">
-            </div>
-            <div class="text-block" id="txt2">
-                У моєму світі найтепліше місце — <span class="highlight">твої</span> обійми.
-            </div>
+            <div class="card-container" id="card2"><img src="https://i.postimg.cc/0yzWTfV0/IMG_4178.jpg" class="card-image" id="img2"></div>
+            <div class="text-block" id="txt2">У моєму світі найтепліше місце — <span class="highlight">твої</span> обійми.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper">
-            <div class="card-container horizontal" id="card3">
-                <img src="https://i.postimg.cc/j2vJ0LXF/IMG-4463.jpg" class="card-image" id="img3" loading="lazy">
-            </div>
-            <div class="text-block" id="txt3">
-                Ти — моя найкраща <span class="highlight">випадковість</span>, яка стала сенсом життя.
-            </div>
+            <div class="card-container horizontal" id="card3"><img src="https://i.postimg.cc/j2vJ0LXF/IMG-4463.jpg" class="card-image" id="img3"></div>
+            <div class="text-block" id="txt3">Ти — моя найкраща <span class="highlight">випадковість</span>.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
-            <div class="card-container" id="card4">
-                <img src="https://i.postimg.cc/NF0jXb6T/IMG-4556.jpg" class="card-image" id="img4" loading="lazy">
-            </div>
-            <div class="text-block" id="txt4">
-                Дякую, що наповнюєш кожен мій день <span class="highlight">ніжністю</span>.
-            </div>
+            <div class="card-container" id="card4"><img src="https://i.postimg.cc/NF0jXb6T/IMG-4556.jpg" class="card-image" id="img4"></div>
+            <div class="text-block" id="txt4">Дякую за кожну хвилину <span class="highlight">ніжності</span>.</div>
         </div>
     </section>
-  
+
     <section>
         <div class="content-wrapper">
-            <div class="card-container horizontal" id="card5">
-                <img src="https://i.postimg.cc/FFq4G9NQ/IMG-5317.jpg" class="card-image" id="img5" loading="lazy">
-            </div>
-            <div class="text-block" id="txt5">
-                 Бути з <span class="highlight">тобою</span> — це знати, що тебе завжди зрозуміють, підтримають і зігріють усмішкою.
-            </div>
+            <div class="card-container horizontal" id="card5"><img src="https://i.postimg.cc/FFq4G9NQ/IMG-5317.jpg" class="card-image" id="img5"></div>
+            <div class="text-block" id="txt5">Бути з <span class="highlight">тобою</span> — це знати, що тебе завжди підтримають.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
-            <div class="card-container" id="card6">
-                <img src="https://i.postimg.cc/wjWr02YV/IMG-4586.jpg" class="card-image" id="img6" loading="lazy">
-            </div>
-            <div class="text-block" id="txt6">
-                Моє <span class="highlight">кохання</span> до тебе — це не те, що можна виміряти словами, це те, що я відчуваю кожним ударом серця.
-            </div>
+            <div class="card-container" id="card6"><img src="https://i.postimg.cc/wjWr02YV/IMG-4586.jpg" class="card-image" id="img6"></div>
+            <div class="text-block" id="txt6">Моє <span class="highlight">кохання</span> не виміряти словами.</div>
         </div>
-    </section>  
+    </section>
 
     <section>
         <div class="content-wrapper">
-            <div class="card-container" id="card7">
-                <img src="https://i.postimg.cc/yNFPKrcS/IMG_5415.jpg" class="card-image" id="img7" loading="lazy">
-            </div>
-            <div class="text-block" id="txt7">
-                <span class="highlight">Ти</span>— моє головне натхнення і найщасливіший вибір у житті. Моє серце належить <span class="highlight">тобі</span> не тільки сьогодні, а кожну секунду нашого спільного життя.
-            </div>
+            <div class="card-container" id="card7"><img src="https://i.postimg.cc/yNFPKrcS/IMG_5415.jpg" class="card-image" id="img7"></div>
+            <div class="text-block"><span class="highlight">Ти</span> — мій найщасливіший вибір у житті.</div>
         </div>
     </section>
 
-    <section>
-        <div class="content-wrapper" style="justify-content: center;">
-            <div class="final-reveal" id="final" onclick="celebrate()">Я тебе кохаю ❤️</div>
-        </div>
-    </section>
+    <section><div class="final-reveal" id="final" onclick="celebrate()">Я тебе кохаю ❤️</div></section>
 
     <script>
-        // Telegram WebApp Setup
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
 
         gsap.registerPlugin(ScrollTrigger);
-
-        gsap.to(".blob-1", { x: "20%", y: "10%", duration: 25, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(".blob-2", { x: "-10%", y: "-20%", duration: 22, repeat: -1, yoyo: true, ease: "sine.inOut" });
-
+        gsap.to(".blob-1", { x: "20%", y: "10%", duration: 25, repeat: -1, yoyo: true });
+        gsap.to(".blob-2", { x: "-10%", y: "-20%", duration: 22, repeat: -1, yoyo: true });
         gsap.from("#hero", { opacity: 0, y: 50, duration: 3, ease: "expo.out" });
 
         const slides = [
@@ -261,12 +214,11 @@
         slides.forEach((s) => {
             gsap.to(s.container, {
                 scrollTrigger: { trigger: s.container, start: "top 110%", end: "top 30%", scrub: 1.5 },
-                opacity: 1, y: 0, rotateX: 0, rotateY: 0, ease: "power2.out"
+                opacity: 1, y: 0, rotateX: 0, rotateY: 0
             });
             gsap.to(s.img, {
                 scrollTrigger: { trigger: s.container, start: "top bottom", end: "bottom top", scrub: true },
-                y: "10%", 
-                ease: "none"
+                y: "10%"
             });
             gsap.to(s.txt, {
                 scrollTrigger: { trigger: s.txt, start: "top 100%", end: "top 55%", scrub: 2 },
@@ -275,39 +227,35 @@
         });
 
         function celebrate() {
-            confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 }, colors: ['#590d22', '#a4161a', '#ffccd5'] });
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.notificationOccurred('success');
-            }
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 } });
+            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
         }
 
-        // --- НОВИЙ МЕТОД ЗВУКУ (iOS FIX) ---
+        // --- ВДОСКОНАЛЕНИЙ МЕТОД ДЛЯ IPHONE ---
         function toggleMusic() {
             const audio = document.getElementById('bgMusic');
             const btn = document.getElementById('musicBtn');
             
             if (audio.paused) {
-                // Спроба відтворення
+                // Примусове завантаження перед відтворенням
+                audio.load(); 
+                
                 const playPromise = audio.play();
-
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
                         btn.innerHTML = "Pause Music";
-                        btn.style.background = "#ffccd5";
-                    }).catch(error => {
-                        // iOS Muted Kick: запускаємо з вимкненим звуком і одразу вмикаємо
+                    }).catch(() => {
+                        // Якщо блокує - пробуємо через Muted Kick
                         audio.muted = true;
                         audio.play().then(() => {
-                            audio.muted = false;
+                            setTimeout(() => { audio.muted = false; }, 100);
                             btn.innerHTML = "Pause Music";
-                            btn.style.background = "#ffccd5";
                         });
                     });
                 }
             } else {
                 audio.pause();
                 btn.innerHTML = "Play Music";
-                btn.style.background = "rgba(255, 240, 243, 0.85)";
             }
         }
     </script>
