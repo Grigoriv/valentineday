@@ -282,11 +282,26 @@
             }
         }
 
-        function toggleMusic() {
-            const audio = document.getElementById('bgMusic');
-            const btn = document.getElementById('musicBtn');
-            audio.paused ? (audio.play(), btn.innerHTML = "Paused") : (audio.pause(), btn.innerHTML = "Play Music");
-        }
+       function toggleMusic() {
+    const audio = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    
+    // Спеціальний фікс для iOS: "пробуджуємо" аудіо при першому кліку
+    if (audio.paused) {
+        audio.play().then(() => {
+            btn.innerHTML = "Pause Music";
+            btn.style.background = "#ffccd5"; // Змінюємо колір для візуального підтвердження
+        }).catch(e => {
+            console.log("Audio playback failed:", e);
+            alert("Будь ласка, перевірте, чи вимкнено беззвучний режим на iPhone");
+        });
+    } else {
+        audio.pause();
+        btn.innerHTML = "Play Music";
+        btn.style.background = "rgba(255, 240, 243, 0.85)";
+    }
+}
     </script>
 </body>
 </html>
+
