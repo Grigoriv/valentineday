@@ -145,7 +145,8 @@
     </div>
 
     <button class="music-btn" onclick="toggleMusic()" id="musicBtn">Play Music</button>
-    <audio id="bgMusic" loop src="https://www.dropbox.com/scl/fi/gdhr0uj0llmwsc1f594oz/8ade7716f6b1ec6.mp3?rlkey=e1cc1l4ttfg10xcgwdoj9b2na&st=01iu5jba&dl=1"></audio>
+    
+    <audio id="bgMusic" loop src="8ade7716f6b1ec6.mp3"></audio>
 
     <section>
         <div class="hero-title" id="hero">Для моєї<br>коханої Анічки.</div>
@@ -275,33 +276,40 @@
 
         function celebrate() {
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 }, colors: ['#590d22', '#a4161a', '#ffccd5'] });
-            
-            // Вібрація (Haptic Feedback) для Telegram
             if (tg.HapticFeedback) {
                 tg.HapticFeedback.notificationOccurred('success');
             }
         }
 
-       function toggleMusic() {
-    const audio = document.getElementById('bgMusic');
-    const btn = document.getElementById('musicBtn');
-    
-    // Спеціальний фікс для iOS: "пробуджуємо" аудіо при першому кліку
-    if (audio.paused) {
-        audio.play().then(() => {
-            btn.innerHTML = "Pause Music";
-            btn.style.background = "#ffccd5"; // Змінюємо колір для візуального підтвердження
-        }).catch(e => {
-            console.log("Audio playback failed:", e);
-            alert("Будь ласка, перевірте, чи вимкнено беззвучний режим на iPhone");
-        });
-    } else {
-        audio.pause();
-        btn.innerHTML = "Play Music";
-        btn.style.background = "rgba(255, 240, 243, 0.85)";
-    }
-}
+        // --- НОВИЙ МЕТОД ЗВУКУ (iOS FIX) ---
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicBtn');
+            
+            if (audio.paused) {
+                // Спроба відтворення
+                const playPromise = audio.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        btn.innerHTML = "Pause Music";
+                        btn.style.background = "#ffccd5";
+                    }).catch(error => {
+                        // iOS Muted Kick: запускаємо з вимкненим звуком і одразу вмикаємо
+                        audio.muted = true;
+                        audio.play().then(() => {
+                            audio.muted = false;
+                            btn.innerHTML = "Pause Music";
+                            btn.style.background = "#ffccd5";
+                        });
+                    });
+                }
+            } else {
+                audio.pause();
+                btn.innerHTML = "Play Music";
+                btn.style.background = "rgba(255, 240, 243, 0.85)";
+            }
+        }
     </script>
 </body>
 </html>
-
