@@ -2,12 +2,14 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Valentine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Для моєї Анічки ❤️</title>
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -22,7 +24,7 @@
             --card-shadow: 0 30px 60px -10px rgba(89, 13, 34, 0.15);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
             background-color: var(--bg); 
@@ -30,108 +32,86 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             font-family: 'Playfair Display', serif; 
-            font-style: italic; 
-            font-weight: 400;
-        }
-
-        h1, h2, h3, p, div, span, button {
-            font-family: 'Playfair Display', serif;
             font-style: italic;
         }
 
         .ambient-light {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none; overflow: hidden;
+            z-index: 0; pointer-events: none;
         }
-        .blob {
-            position: absolute; filter: blur(100px); opacity: 0.3; will-change: transform;
-        }
-        .blob-1 { top: -20%; left: -20%; width: 60vw; height: 60vw; background: #ffccd5; }
-        .blob-2 { bottom: -20%; right: -20%; width: 70vw; height: 70vw; background: #ffb3c1; }
+        .blob { position: absolute; filter: blur(100px); opacity: 0.3; }
+        .blob-1 { top: -10%; left: -10%; width: 60vw; height: 60vw; background: #ffccd5; }
+        .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #ffb3c1; }
 
         section {
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
-            padding: 10vh 6vw; position: relative; z-index: 2;
+            padding: 10vh 20px; position: relative; z-index: 2;
         }
 
         .hero-title {
-            font-size: clamp(3.5rem, 9vw, 7rem);
+            font-size: clamp(3rem, 10vw, 6.5rem);
             font-weight: 600; 
-            background: linear-gradient(135deg, var(--highlight-start) 20%, var(--highlight-end) 100%);
+            background: linear-gradient(135deg, var(--highlight-start), var(--highlight-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
             line-height: 1.1;
-            padding-bottom: 15px;
         }
 
         .content-wrapper {
             display: flex; flex-direction: column; align-items: center; 
-            gap: 30px; width: 100%; perspective: 1000px;
+            gap: 40px; width: 100%; max-width: 1100px;
         }
 
         @media (min-width: 1024px) {
-            .content-wrapper { flex-direction: row; justify-content: space-around; gap: 80px; }
+            .content-wrapper { flex-direction: row; justify-content: space-around; }
             .content-wrapper.reverse { flex-direction: row-reverse; }
         }
 
         .card-container {
-            width: 100%; max-width: 450px; aspect-ratio: 4 / 5;
-            border-radius: 32px; overflow: hidden; position: relative;
+            width: 100%; max-width: 420px; aspect-ratio: 4 / 5;
+            border-radius: 30px; overflow: hidden; position: relative;
             box-shadow: var(--card-shadow); background: #fff;
-            opacity: 0; transform: translateY(80px) rotateX(5deg) rotateY(-5deg);
-            will-change: transform, opacity;
         }
 
-        .card-container.horizontal { aspect-ratio: 4 / 3; max-width: 520px; }
+        .card-container.horizontal { aspect-ratio: 4 / 3; max-width: 500px; }
 
         .card-image {
-            width: 100%; 
-            height: 130%; 
-            object-fit: cover;
-            position: absolute; 
-            top: -15%; 
-            left: 0; 
+            width: 100%; height: 135%; object-fit: cover;
+            position: absolute; top: -17.5%; left: 0;
             will-change: transform;
         }
 
         .text-block {
-            max-width: 480px;
-            font-size: clamp(1.4rem, 3.8vw, 2.2rem);
+            max-width: 450px;
+            font-size: clamp(1.4rem, 4vw, 2.3rem);
             line-height: 1.4;
-            color: var(--text);
             text-align: center;
-            opacity: 0; transform: translateY(30px); will-change: transform, opacity;
         }
 
-        @media (min-width: 1024px) { .text-block { text-align: left; } }
-
         .highlight {
-            font-weight: 500;
-            background: linear-gradient(90deg, var(--highlight-start) 0%, var(--highlight-end) 100%);
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--highlight-start), var(--highlight-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block; padding-right: 4px;
         }
 
         .music-btn {
-            position: fixed; bottom: 30px; right: 30px;
-            background: rgba(255, 240, 243, 0.85); backdrop-filter: blur(12px);
-            padding: 12px 24px; border-radius: 50px; border: 1px solid rgba(89, 13, 34, 0.05);
-            color: var(--text); font-weight: 500; cursor: pointer; z-index: 100;
-            box-shadow: 0 5px 20px rgba(89, 13, 34, 0.1); transition: 0.3s;
-            font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;
+            position: fixed; bottom: 25px; right: 25px;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            padding: 12px 20px; border-radius: 25px; border: 1px solid rgba(89, 13, 34, 0.1);
+            cursor: pointer; z-index: 100; font-family: inherit; font-size: 0.8rem;
+            color: var(--text); box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .final-reveal {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            cursor: pointer; transition: 0.3s;
-            font-weight: 600;
+            font-size: clamp(2.2rem, 8vw, 4.5rem);
+            cursor: pointer; font-weight: 600;
             background: linear-gradient(135deg, var(--highlight-start), var(--highlight-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block; padding-right: 10px; 
+            padding-right: 15px;
         }
     </style>
 </head>
@@ -142,138 +122,117 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <button class="music-btn" onclick="toggleMusic()" id="musicBtn">Play Music</button>
+    <button class="music-btn" onclick="toggleMusic()" id="musicBtn">Play Music ♫</button>
     <audio id="bgMusic" loop src="https://www.dropbox.com/scl/fi/gdhr0uj0llmwsc1f594oz/8ade7716f6b1ec6.mp3?rlkey=e1cc1l4ttfg10xcgwdoj9b2na&st=01iu5jba&dl=1"></audio>
 
-    <section>
-        <div class="hero-title" id="hero">Для моєї<br>коханої Анічки.</div>
-    </section>
+    <section><div class="hero-title">Для моєї коханої Анічки.</div></section>
 
     <section>
         <div class="content-wrapper">
-            <div class="card-container" id="card1">
-                <img src="https://i.postimg.cc/VsVckzV7/IMG-5102.jpg" class="card-image" id="img1" loading="lazy">
-            </div>
-            <div class="text-block" id="txt1">
-                Все почалося на інферно і я навіть подумати не міг, що саме там знайду <span class="highlight">любов</span> всього мого життя. Яка повністю змінить мій світ.
-            </div>
+            <div class="card-container"><img src="https://i.postimg.cc/VsVckzV7/IMG-5102.jpg" class="card-image"></div>
+            <div class="text-block">Все почалося на інферно і я навіть подумати не міг, що знайду <span class="highlight">любов</span> всього життя. Яка повністю змінить мій світ.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
-            <div class="card-container" id="card2">
-                <img src="https://i.postimg.cc/0yzWTfV0/IMG_4178.jpg" class="card-image" id="img2" loading="lazy">
-            </div>
-            <div class="text-block" id="txt2">
-                У моєму світі найтепліше місце — <span class="highlight">твої</span> обійми.
-            </div>
+            <div class="card-container"><img src="https://i.postimg.cc/0yzWTfV0/IMG_4178.jpg" class="card-image"></div>
+            <div class="text-block">У моєму світі найтепліше місце — <span class="highlight">твої</span> обійми.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper">
-            <div class="card-container horizontal" id="card3">
-                <img src="https://i.postimg.cc/j2vJ0LXF/IMG-4463.jpg" class="card-image" id="img3" loading="lazy">
-            </div>
-            <div class="text-block" id="txt3">
-                Ти — моя найкраща <span class="highlight">випадковість</span>, яка стала сенсом життя.
-            </div>
+            <div class="card-container horizontal"><img src="https://i.postimg.cc/j2vJ0LXF/IMG-4463.jpg" class="card-image"></div>
+            <div class="text-block">Ти — моя найкраща <span class="highlight">випадковість</span>, яка стала сенсом життя.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
-            <div class="card-container" id="card4">
-                <img src="https://i.postimg.cc/NF0jXb6T/IMG-4556.jpg" class="card-image" id="img4" loading="lazy">
-            </div>
-            <div class="text-block" id="txt4">
-                Дякую, що наповнюєш кожен мій день <span class="highlight">ніжністю</span>.
-            </div>
+            <div class="card-container"><img src="https://i.postimg.cc/NF0jXb6T/IMG-4556.jpg" class="card-image"></div>
+            <div class="text-block">Дякую, що наповнюєш кожен мій день <span class="highlight">ніжністю</span>.</div>
         </div>
     </section>
-  
+
     <section>
         <div class="content-wrapper">
-            <div class="card-container horizontal" id="card5">
-                <img src="https://i.postimg.cc/FFq4G9NQ/IMG-5317.jpg" class="card-image" id="img5" loading="lazy">
-            </div>
-            <div class="text-block" id="txt5">
-                 Бути з <span class="highlight">тобою</span> — це знати, що тебе завжди зрозуміють, підтримають і зігріють усмішкою.
-            </div>
+            <div class="card-container horizontal"><img src="https://i.postimg.cc/FFq4G9NQ/IMG-5317.jpg" class="card-image"></div>
+            <div class="text-block">Бути з <span class="highlight">тобою</span> — це знати, що тебе завжди зрозуміють, підтримають і зігріють усмішкою.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
-            <div class="card-container" id="card6">
-                <img src="https://i.postimg.cc/wjWr02YV/IMG-4586.jpg" class="card-image" id="img6" loading="lazy">
-            </div>
-            <div class="text-block" id="txt6">
-                Моє <span class="highlight">кохання</span> до тебе — це не те, що можна виміряти словами, це те, що я відчуваю кожним ударом серця.
-            </div>
-        </div>
-    </section>  
-
-    <section>
-        <div class="content-wrapper">
-            <div class="card-container" id="card7">
-                <img src="https://i.postimg.cc/yNFPKrcS/IMG_5415.jpg" class="card-image" id="img7" loading="lazy">
-            </div>
-            <div class="text-block" id="txt7">
-                <span class="highlight">Ти</span>— моє головне натхнення і найщасливіший вибір у житті. Моє серце належить <span class="highlight">тобі</span> не тільки сьогодні, а кожну секунду нашого спільного життя.
-            </div>
+            <div class="card-container"><img src="https://i.postimg.cc/wjWr02YV/IMG-4586.jpg" class="card-image"></div>
+            <div class="text-block">Моє <span class="highlight">кохання</span> до тебе — це не те, що можна виміряти словами, це те, що я відчуваю кожним ударом серця.</div>
         </div>
     </section>
 
     <section>
-        <div class="content-wrapper" style="justify-content: center;">
-            <div class="final-reveal" id="final" onclick="celebrate()">Я тебе кохаю ❤️</div>
+        <div class="content-wrapper">
+            <div class="card-container"><img src="https://i.postimg.cc/yNFPKrcS/IMG_5415.jpg" class="card-image"></div>
+            <div class="text-block"><span class="highlight">Ти</span> — моє головне натхнення і найщасливіший вибір у житті. Моє серце належить <span class="highlight">тобі</span> кожну секунду нашого життя.</div>
         </div>
+    </section>
+
+    <section>
+        <div class="final-reveal" onclick="celebrate()">Я тебе кохаю ❤️</div>
     </section>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+        // Telegram WebApp Setup
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        tg.enableClosingConfirmation(); // Запит при спробі закрити
 
-        gsap.to(".blob-1", { x: "20%", y: "10%", duration: 25, repeat: -1, yoyo: true, ease: "sine.inOut" });
-        gsap.to(".blob-2", { x: "-10%", y: "-20%", duration: 22, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        window.addEventListener('load', () => {
+            if (typeof gsap !== "undefined") {
+                gsap.registerPlugin(ScrollTrigger);
+                
+                const wrappers = document.querySelectorAll('.content-wrapper');
+                wrappers.forEach(wrapper => {
+                    const card = wrapper.querySelector('.card-container');
+                    const text = wrapper.querySelector('.text-block');
+                    const img = wrapper.querySelector('.card-image');
 
-        gsap.from("#hero", { opacity: 0, y: 50, duration: 3, ease: "expo.out" });
+                    gsap.from(card, {
+                        scrollTrigger: { trigger: wrapper, start: "top 90%", end: "top 40%", scrub: 1.5 },
+                        opacity: 0, y: 100, rotateX: 5, ease: "power2.out"
+                    });
 
-        const slides = [
-            { container: "#card1", img: "#img1", txt: "#txt1" },
-            { container: "#card2", img: "#img2", txt: "#txt2" },
-            { container: "#card3", img: "#img3", txt: "#txt3" },
-            { container: "#card4", img: "#img4", txt: "#txt4" },
-            { container: "#card5", img: "#img5", txt: "#txt5" },
-            { container: "#card6", img: "#img6", txt: "#txt6" },
-            { container: "#card7", img: "#img7", txt: "#txt7" }
-        ];
+                    gsap.from(text, {
+                        scrollTrigger: { trigger: wrapper, start: "top 85%", end: "top 45%", scrub: 2 },
+                        opacity: 0, y: 40
+                    });
 
-        slides.forEach((s) => {
-            gsap.to(s.container, {
-                scrollTrigger: { trigger: s.container, start: "top 110%", end: "top 30%", scrub: 1.5 },
-                opacity: 1, y: 0, rotateX: 0, rotateY: 0, ease: "power2.out"
-            });
-            gsap.to(s.img, {
-                scrollTrigger: { trigger: s.container, start: "top bottom", end: "bottom top", scrub: true },
-                y: "10%", 
-                ease: "none"
-            });
-            gsap.to(s.txt, {
-                scrollTrigger: { trigger: s.txt, start: "top 100%", end: "top 55%", scrub: 2 },
-                opacity: 1, y: 0
-            });
+                    gsap.to(img, {
+                        scrollTrigger: { trigger: wrapper, start: "top bottom", end: "bottom top", scrub: true },
+                        y: "10%", ease: "none"
+                    });
+                });
+            }
         });
 
         function celebrate() {
-            confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 }, colors: ['#590d22', '#a4161a', '#ffccd5'] });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#590d22', '#a4161a', '#ffccd5'] });
+            // Вібрація для Telegram на iPhone
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
         }
 
         function toggleMusic() {
             const audio = document.getElementById('bgMusic');
             const btn = document.getElementById('musicBtn');
-            audio.paused ? (audio.play(), btn.innerHTML = "Paused") : (audio.pause(), btn.innerHTML = "Play Music");
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = "Pause Music";
+            } else {
+                audio.pause();
+                btn.innerHTML = "Play Music";
+            }
         }
     </script>
 </body>
