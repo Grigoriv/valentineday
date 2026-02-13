@@ -36,6 +36,11 @@
             font-weight: 400;
         }
 
+        h1, h2, h3, p, div, span, button {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
         .ambient-light {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none; overflow: hidden;
@@ -60,6 +65,7 @@
             -webkit-text-fill-color: transparent;
             text-align: center;
             line-height: 1.1;
+            padding-bottom: 15px;
         }
 
         .content-wrapper {
@@ -106,7 +112,6 @@
             display: inline-block; padding-right: 4px;
         }
 
-        /* Кнопка тепер прихована на мобільних за замовчуванням */
         .music-btn {
             position: fixed; bottom: 30px; right: 30px;
             background: rgba(255, 240, 243, 0.85); backdrop-filter: blur(12px);
@@ -117,7 +122,6 @@
             display: block;
         }
 
-        /* Ховаємо кнопку на пристроях з тач-скріном (iPhone/Android) */
         @media (pointer: coarse) {
             .music-btn { display: none; }
         }
@@ -140,17 +144,14 @@
     </div>
 
     <button class="music-btn" onclick="toggleMusic()" id="musicBtn">Play Music</button>
-    
-    <audio id="bgMusic" loop preload="auto">
-        <source src="8ade7716f6b1ec6.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bgMusic" loop preload="auto" src="8ade7716f6b1ec6.mp3"></audio>
 
     <section><div class="hero-title" id="hero">Для моєї<br>коханої Анічки.</div></section>
 
     <section>
         <div class="content-wrapper">
             <div class="card-container" id="card1"><img src="https://i.postimg.cc/VsVckzV7/IMG-5102.jpg" class="card-image" id="img1"></div>
-            <div class="text-block" id="txt1">Все почалося на інферно і я навіть подумати не міг, що знайду <span class="highlight">любов</span> життя.</div>
+            <div class="text-block" id="txt1">Все почалося на інферно і я навіть подумати не міг, що саме там знайду <span class="highlight">любов</span> всього мого життя. Яка повністю змінить мій світ.</div>
         </div>
     </section>
 
@@ -164,35 +165,35 @@
     <section>
         <div class="content-wrapper">
             <div class="card-container horizontal" id="card3"><img src="https://i.postimg.cc/j2vJ0LXF/IMG-4463.jpg" class="card-image" id="img3"></div>
-            <div class="text-block" id="txt3">Ти — моя найкраща <span class="highlight">випадковість</span>.</div>
+            <div class="text-block" id="txt3">Ти — моя найкраща <span class="highlight">випадковість</span>, яка стала сенсом життя.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
             <div class="card-container" id="card4"><img src="https://i.postimg.cc/NF0jXb6T/IMG-4556.jpg" class="card-image" id="img4"></div>
-            <div class="text-block" id="txt4">Дякую за кожну хвилину <span class="highlight">ніжності</span>.</div>
+            <div class="text-block" id="txt4">Дякую, що наповнюєш кожен мій день <span class="highlight">ніжністю</span>.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper">
             <div class="card-container horizontal" id="card5"><img src="https://i.postimg.cc/FFq4G9NQ/IMG-5317.jpg" class="card-image" id="img5"></div>
-            <div class="text-block" id="txt5">Бути з <span class="highlight">тобою</span> — це знати, що тебе завжди підтримають.</div>
+            <div class="text-block" id="txt5">Бути з <span class="highlight">тобою</span> — це знати, що тебе завжди зрозуміють, підтримають і зігріють усмішкою.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper reverse">
             <div class="card-container" id="card6"><img src="https://i.postimg.cc/wjWr02YV/IMG-4586.jpg" class="card-image" id="img6"></div>
-            <div class="text-block" id="txt6">Моє <span class="highlight">кохання</span> не виміряти словами.</div>
+            <div class="text-block" id="txt6">Моє <span class="highlight">кохання</span> до тебе — це не те, що можна виміряти словами, це те, що я відчуваю кожним ударом серця.</div>
         </div>
     </section>
 
     <section>
         <div class="content-wrapper">
             <div class="card-container" id="card7"><img src="https://i.postimg.cc/yNFPKrcS/IMG_5415.jpg" class="card-image" id="img7"></div>
-            <div class="text-block"><span class="highlight">Ти</span> — мій найщасливіший вибір у житті.</div>
+            <div class="text-block"><span class="highlight">Ти</span>— моє головне натхнення і найщасливіший вибір у житті. Моє серце належить <span class="highlight">тобі</span> не тільки сьогодні, а кожну секунду нашого спільного життя.</div>
         </div>
     </section>
 
@@ -200,58 +201,32 @@
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+        tg.ready(); tg.expand();
 
         const audio = document.getElementById('bgMusic');
         let musicStarted = false;
 
-        // Автозапуск для iPhone при будь-якій взаємодії з екраном
-        function startMusicOnInteraction() {
+        function startMusic() {
             if (!musicStarted) {
-                audio.play().then(() => {
-                    musicStarted = true;
-                    // Видаляємо слухачів після запуску
-                    document.removeEventListener('click', startMusicOnInteraction);
-                    document.removeEventListener('touchstart', startMusicOnInteraction);
-                    document.removeEventListener('scroll', startMusicOnInteraction);
-                }).catch(e => console.log("Чекаємо жест..."));
+                audio.play().then(() => { musicStarted = true; }).catch(() => {});
             }
         }
-
-        // Слухаємо тапи та скрол для iPhone
-        document.addEventListener('click', startMusicOnInteraction);
-        document.addEventListener('touchstart', startMusicOnInteraction);
-        window.addEventListener('scroll', startMusicOnInteraction);
+        document.addEventListener('click', startMusic);
+        document.addEventListener('touchstart', startMusic);
+        window.addEventListener('scroll', startMusic);
 
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(".blob-1", { x: "20%", y: "10%", duration: 25, repeat: -1, yoyo: true });
         gsap.to(".blob-2", { x: "-10%", y: "-20%", duration: 22, repeat: -1, yoyo: true });
         gsap.from("#hero", { opacity: 0, y: 50, duration: 3, ease: "expo.out" });
 
-        const slides = [
-            { container: "#card1", img: "#img1", txt: "#txt1" },
-            { container: "#card2", img: "#img2", txt: "#txt2" },
-            { container: "#card3", img: "#img3", txt: "#txt3" },
-            { container: "#card4", img: "#img4", txt: "#txt4" },
-            { container: "#card5", img: "#img5", txt: "#txt5" },
-            { container: "#card6", img: "#img6", txt: "#txt6" },
-            { container: "#card7", img: "#img7", txt: "#txt7" }
-        ];
-
-        slides.forEach((s) => {
-            gsap.to(s.container, {
-                scrollTrigger: { trigger: s.container, start: "top 110%", end: "top 30%", scrub: 1.5 },
-                opacity: 1, y: 0, rotateX: 0, rotateY: 0
-            });
-            gsap.to(s.img, {
-                scrollTrigger: { trigger: s.container, start: "top bottom", end: "bottom top", scrub: true },
-                y: "10%"
-            });
-            gsap.to(s.txt, {
-                scrollTrigger: { trigger: s.txt, start: "top 100%", end: "top 55%", scrub: 2 },
-                opacity: 1, y: 0
-            });
+        const slides = ["#card1", "#card2", "#card3", "#card4", "#card5", "#card6", "#card7"];
+        slides.forEach((id, i) => {
+            gsap.to(id, { scrollTrigger: { trigger: id, start: "top 110%", end: "top 30%", scrub: 1.5 }, opacity: 1, y: 0, rotateX: 0, rotateY: 0 });
+            const img = id + " img";
+            gsap.to(img, { scrollTrigger: { trigger: id, start: "top bottom", end: "bottom top", scrub: true }, y: "10%" });
+            const txt = "#txt" + (i + 1);
+            gsap.to(txt, { scrollTrigger: { trigger: txt, start: "top 100%", end: "top 55%", scrub: 2 }, opacity: 1, y: 0 });
         });
 
         function celebrate() {
@@ -260,14 +235,7 @@
         }
 
         function toggleMusic() {
-            const btn = document.getElementById('musicBtn');
-            if (audio.paused) {
-                audio.play();
-                btn.innerHTML = "Pause Music";
-            } else {
-                audio.pause();
-                btn.innerHTML = "Play Music";
-            }
+            audio.paused ? audio.play() : audio.pause();
         }
     </script>
 </body>
