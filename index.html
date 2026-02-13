@@ -206,14 +206,21 @@
         const audio = document.getElementById('bgMusic');
         let musicStarted = false;
 
+        // Перевірка на мобільний пристрій
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
         function startMusic() {
-            if (!musicStarted) {
+            // Тільки якщо це мобільний пристрій
+            if (isMobile && !musicStarted) {
                 audio.play().then(() => { musicStarted = true; }).catch(() => {});
             }
         }
-        document.addEventListener('click', startMusic);
-        document.addEventListener('touchstart', startMusic);
-        window.addEventListener('scroll', startMusic);
+        
+        // Слухаємо жести ТІЛЬКИ на мобільних
+        if (isMobile) {
+            document.addEventListener('touchstart', startMusic);
+            window.addEventListener('scroll', startMusic);
+        }
 
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(".blob-1", { x: "20%", y: "10%", duration: 25, repeat: -1, yoyo: true });
