@@ -235,10 +235,10 @@
     </section>
 
     <script>
-        // --- Telegram Mini App Logic ---
+        // Telegram WebApp Setup
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand(); // Розгорнути на весь екран
+        tg.expand();
 
         gsap.registerPlugin(ScrollTrigger);
 
@@ -274,7 +274,6 @@
         });
 
         function celebrate() {
-            // Конфетті
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 }, colors: ['#590d22', '#a4161a', '#ffccd5'] });
             
             // Вібрація (Haptic Feedback) для Telegram
